@@ -56,6 +56,18 @@ function accelerationChange(accx, accy, accz) {
 }
 
 function rotationChange(rotx, roty, rotz) {
+    // How far the phone tilts away from flat, in degrees
+    const tilt = Math.max(Math.abs(rotx), Math.abs(roty));
+    // Flat = silent, 30 degrees or more = loudest
+    let pressure = Math.min(tilt / 30, 1);
+    if (tilt < 2) {
+        pressure = 0;
+    }
+    if (pressure > 0) {
+        turntimer = millis();
+        statusLabels[1].style("color", "pink");
+    }
+    playAudio(pressure);
 }
 
 function mousePressed() {
@@ -74,7 +86,6 @@ function deviceTurned() {
 function deviceShaken() {
     shaketimer = millis();
     statusLabels[0].style("color", "pink");
-    playAudio();
 }
 
 function getMinMaxParam(address) {
