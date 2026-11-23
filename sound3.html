@@ -1,54 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      http-equiv="Cache-Control"
-      content="no-cache, max-age=0, must-revalidate"
-    />
-    <title>p5.js faust example</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.js"></script>
-    <script src="dsp.js"></script>
-  </head>
-
-  <body class="grid-container fullbody">
-    <nav class="primary-nav">
-      <li><a href="index.html">Interaction 1</a></li>
-      <li><a href="sound2.html">Interaction 2</a></li>
-      <li><a href="sound3.html">Interaction 3</a></li>
-    </nav>
-
-    <div id="info">
-      <p>
-        <b>Insert a description of your sonic interaction design here! </b>
-        <br />
-        <br />
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut adipisci,
-        non quasi vel vero odit debitis recusandae impedit laborum id tempora!
-        Enim accusantium a voluptatum nisi ea placeat? Accusamus, perferendis?
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur
-        accusantium suscipit eaque similique odit deserunt iure est unde libero
-        pariatur doloribus voluptatibus voluptatum cupiditate error, dolorem
-        eius eos. Provident, ullam.
-      </p>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, max-age=0, must-revalidate">
+  <title>Interaction 3 · Audio Spirit Level</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="spirit-level.css">
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.js"></script>
+  <script src="dsp.js"></script>
+</head>
+<body class="grid-container spirit-page">
+  <nav class="primary-nav" aria-label="Interactions">
+    <li><a href="index.html">Interaction 1</a></li>
+    <li><a href="sound2.html">Interaction 2</a></li>
+    <li><a href="sound3.html" aria-current="page">Interaction 3</a></li>
+  </nav>
+  <section id="info" aria-labelledby="level-title">
+    <p class="eyebrow">INTERACTION 03 · TILT TO LISTEN</p>
+    <h1 id="level-title">Audio spirit level</h1>
+    <p class="intro">Place the phone flat on a surface. Listen as you tilt it: a steeper surface produces faster sound pulses.</p>
+    <div class="measurement">
+      <output id="level-angle" aria-label="Surface inclination">—</output>
+      <p id="level-state" data-state="waiting" role="status">WAITING FOR SENSOR DATA</p>
     </div>
-
-    <footer>
-      <p>
-        Developed by Maurizio Berta and Laura McHugh
-        <br />
-        for
-        <a href="https://github.com/mauriziobrt/DT2140-Sound-Interaction-Lab"
-          >DT2140 Multimodal Interfaces Sound Interaction Lab</a
-        >
-        <br />
-        KTH Royal Institute of Technology, 2025
-      </p>
-    </footer>
-  </body>
+    <div class="level-track" aria-hidden="true"><span class="level-center"></span><span id="level-marker"></span></div>
+    <p id="input-state">Enable phone sensors, then tilt the phone.</p>
+    <p id="sound-state">Loading the brass sound model…</p>
+    <button id="enable-orientation" type="button">Enable phone sensors</button>
+    <p class="hint">Start with low volume. Select <strong>Turn On DSP</strong> above. Green means level; sound returns beyond the tolerance.</p>
+    <details>
+      <summary>Computer test controls</summary>
+      <label class="simulation-toggle"><input id="simulation" type="checkbox"> Use desktop simulation</label>
+      <div id="simulator" hidden>
+        <label for="simulate-x">Tilt X <output id="simulate-x-value">0°</output></label>
+        <input id="simulate-x" type="range" min="-90" max="90" step="1" value="0">
+        <label for="simulate-y">Tilt Y <output id="simulate-y-value">0°</output></label>
+        <input id="simulate-y" type="range" min="-90" max="90" step="1" value="0">
+        <p class="hint">Simulation checks the mapping and sound. It does not verify phone sensors.</p>
+      </div>
+    </details>
+    <details>
+      <summary>How the feedback works</summary>
+      <p>Both tilt axes contribute to the angle between the phone's plane and horizontal. Enter the level state at 2° or less; leave it above 3°. This tolerance prevents rapid switching from small hand movements.</p>
+      <p>The existing Faust brass model supplies the sound. Larger inclinations increase its blowing pressure and the repetition rate, with a separate bounded output gain.</p>
+    </details>
+  </section>
+  <footer><p>Sound model: Romain Michon · Course starter: Maurizio Berta and Laura McHugh</p></footer>
   <script src="helpers.js"></script>
+  <script src="level-model.js"></script>
   <script src="interaction-3.js"></script>
   <script src="sketch.js"></script>
+</body>
 </html>
