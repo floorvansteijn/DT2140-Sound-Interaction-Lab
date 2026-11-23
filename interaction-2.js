@@ -60,12 +60,14 @@ let lastThunder = 0;
 function rotationChange(rotx, roty, rotz) {
     if (rotx > 75 && millis() - lastThunder > 3000) {
         lastThunder = millis();
+        turntimer = millis();
+        statusLabels[1].style("color", "pink");
         playAudio();
     }
 }
 
 function mousePressed() {
-    // playAudio()
+    playAudio()
     // Use this for debugging from the desktop!
 }
 
