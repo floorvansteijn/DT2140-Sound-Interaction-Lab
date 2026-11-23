@@ -61,7 +61,6 @@ function rotationChange(rotx, roty, rotz) {
     if (rotx > 75 && millis() - lastThunder > 3000) {
         lastThunder = millis();
         turntimer = millis();
-        statusLabels[1].style("color", "pink");
         playAudio();
     }
 }

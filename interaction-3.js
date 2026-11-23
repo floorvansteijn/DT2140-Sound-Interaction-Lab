@@ -65,7 +65,6 @@ function rotationChange(rotx, roty, rotz) {
     }
     if (pressure > 0) {
         turntimer = millis();
-        statusLabels[1].style("color", "pink");
     }
     playAudio(pressure);
 }
